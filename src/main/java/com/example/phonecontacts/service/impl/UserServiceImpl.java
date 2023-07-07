@@ -3,7 +3,7 @@ package com.example.phonecontacts.service.impl;
 import com.example.phonecontacts.model.User;
 import com.example.phonecontacts.repository.UserRepository;
 import com.example.phonecontacts.service.UserService;
-import exception.NullEntityReferenceException;
+import com.example.phonecontacts.exception.NullEntityReferenceException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

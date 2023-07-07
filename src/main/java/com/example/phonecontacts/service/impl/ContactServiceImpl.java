@@ -3,7 +3,7 @@ package com.example.phonecontacts.service.impl;
 import com.example.phonecontacts.model.Contact;
 import com.example.phonecontacts.repository.ContactRepository;
 import com.example.phonecontacts.service.ContactService;
-import exception.NullEntityReferenceException;
+import com.example.phonecontacts.exception.NullEntityReferenceException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -54,4 +54,8 @@ public class ContactServiceImpl implements ContactService {
         return contactRepository.findAll();
     }
 
+    @Override
+    public boolean isExists(String name) {
+        return contactRepository.existsByName(name);
+    }
 }

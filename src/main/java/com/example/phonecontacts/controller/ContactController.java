@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +37,9 @@ public class ContactController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     ContactResponseDto create(@Valid @RequestBody ContactRequestDto contactRequestDto, Principal principal) {
-        Contact contact = ContactTransformer.convertToEntity(contactRequestDto);
+        Contact contact = contactService.isExists(contactRequestDto.getName()) ?
+                contactService.readByName(contactRequestDto.getName()) :
+                ContactTransformer.convertToEntity(contactRequestDto);
         User user = userService.readByUsername(principal.getName());
         user.getContacts().add(contact);
         userService.update(user);
@@ -48,11 +49,11 @@ public class ContactController {
     @PutMapping
     ContactResponseDto update(@Valid @RequestBody ContactRequestDto contactRequestDto) {
         Contact contact = ContactTransformer.convertToEntity(contactRequestDto);
-
         return new ContactResponseDto(contactService.update(contact));
     }
 
     @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@Valid @RequestBody ContactRequestDto contactRequestDto) {
         contactService.delete(contactRequestDto.getName());
     }

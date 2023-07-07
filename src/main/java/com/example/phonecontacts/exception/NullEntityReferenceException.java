@@ -1,4 +1,4 @@
-package exception;
+package com.example.phonecontacts.exception;
 
 public class NullEntityReferenceException extends RuntimeException {
     public NullEntityReferenceException() {    }
