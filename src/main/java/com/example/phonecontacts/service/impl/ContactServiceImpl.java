@@ -1,9 +1,9 @@
 package com.example.phonecontacts.service.impl;
 
+import com.example.phonecontacts.exception.NullEntityReferenceException;
 import com.example.phonecontacts.model.Contact;
 import com.example.phonecontacts.repository.ContactRepository;
 import com.example.phonecontacts.service.ContactService;
-import com.example.phonecontacts.exception.NullEntityReferenceException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
