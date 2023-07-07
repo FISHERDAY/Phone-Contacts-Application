@@ -1,6 +1,7 @@
 package com.example.phonecontacts.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +16,7 @@ public class Email {
     private Long id;
 
     @Column(unique = true)
+    @Pattern(regexp = "[\\w\\.-]+@[\\w\\.-]+\\.[A-Za-z]+")
     private String email;
 
     public Email(String email) {

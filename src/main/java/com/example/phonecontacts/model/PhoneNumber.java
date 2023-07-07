@@ -1,6 +1,7 @@
 package com.example.phonecontacts.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +16,7 @@ public class PhoneNumber {
     private Long id;
 
     @Column(unique = true)
+    @Pattern(regexp = "\\+380\\d+")
     private String phoneNumber;
 
     public PhoneNumber(String phoneNumber) {
