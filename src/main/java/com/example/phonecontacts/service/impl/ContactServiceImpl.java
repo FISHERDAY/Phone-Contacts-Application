@@ -3,9 +3,12 @@ package com.example.phonecontacts.service.impl;
 import com.example.phonecontacts.model.Contact;
 import com.example.phonecontacts.repository.ContactRepository;
 import com.example.phonecontacts.service.ContactService;
+import exception.NullEntityReferenceException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -17,12 +20,13 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact create(Contact contact) {
+        if (Objects.isNull(contact)) throw new NullEntityReferenceException("Contact cannot be null");
         return contactRepository.save(contact);
     }
 
     @Override
     public Contact update(Contact contact) {
-        Contact updatedContact = findByName(contact.getName());
+        Contact updatedContact = readByName(contact.getName());
         updatedContact.setEmails(contact.getEmails());
         updatedContact.setPhoneNumbers(contact.getPhoneNumbers());
         return contactRepository.save(updatedContact);
@@ -30,12 +34,19 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact readById(long id) {
-        return contactRepository.findById(id).get();
+        return contactRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Contact with id" + id + " not found"));
     }
 
     @Override
-    public void delete(long id) {
-        contactRepository.delete(readById(id));
+    public Contact readByName(String name) {
+        return contactRepository.findByName(name).orElseThrow(
+                () -> new EntityNotFoundException("Contact with name " + name + " not found"));
+    }
+
+    @Override
+    public void delete(String name) {
+        contactRepository.delete(readByName(name));
     }
 
     @Override
@@ -43,8 +54,4 @@ public class ContactServiceImpl implements ContactService {
         return contactRepository.findAll();
     }
 
-    @Override
-    public Contact findByName(String name) {
-        return contactRepository.findByName(name).get();
-    }
 }

@@ -8,7 +8,7 @@ public interface ContactService {
     Contact create(Contact contact);
     Contact readById(long id);
     Contact update(Contact contact);
-    void delete(long id);
+    void delete(String name);
     List<Contact> getAll();
-    Contact findByName(String name);
+    Contact readByName(String name);
 }
