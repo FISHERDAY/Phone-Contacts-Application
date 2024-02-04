@@ -15,7 +15,7 @@ Before running the application, make sure you have the following:
 
 To run the Phone Contacts Application, follow these steps:
 
-1. Clone the repository to your local machine: https://github.com/FISHERDAY/CHI-IT-Academy-Test-Task.git
+1. Clone the repository to your local machine: https://github.com/FISHERDAY/Phone-Contacts-Application.git
 2. Create postgres database for phoneContactsApplication
 3. Change environment variables ({database-name}, {database-username}, {database-password}) for database name, user and password in application.properties file
 4. Change the jwt.secret and jwt.lifetime in application.properties file in case you want to
